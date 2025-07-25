@@ -1250,7 +1250,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "modpanel") {
-    const allowedRoleId = "1209001270355034162";
+    const allowedRoleId = "1398145628218855525";
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
     if (!member.roles.cache.has(allowedRoleId)) {
@@ -1308,7 +1308,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "にゃんこ代行パネル") {
-    const allowedRoleId = "1209001270355034162";
+    const allowedRoleId = "1398145628218855525";
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
     if (!member.roles.cache.has(allowedRoleId)) {
@@ -1385,7 +1385,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     if (interaction.commandName === "ツムツム代行パネル") {
-      const allowedRoleId = "1209001270355034162";
+      const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
   
       if (!member.roles.cache.has(allowedRoleId)) {
@@ -1613,7 +1613,7 @@ client.on("interactionCreate", async (interaction) => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     if (interaction.commandName === "ぷにぷに代行パネル") {
-      const allowedRoleId = "1209001270355034162";
+      const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
   
       if (!member.roles.cache.has(allowedRoleId)) {
