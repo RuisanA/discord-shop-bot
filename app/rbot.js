@@ -243,7 +243,7 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.customId == "ifdelete") {
     if (!interaction.isButton()) return;
   
-    const allowedRoleId = "1388759854738571268";
+    const allowedRoleId = "1398145628218855525";
   
     if (!interaction.member.roles.cache.has(allowedRoleId)) {
       return interaction.reply({
@@ -1250,7 +1250,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "modpanel") {
-    const allowedRoleId = "1388759854738571268";
+    const allowedRoleId = "1398145628218855525";
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
     if (!member.roles.cache.has(allowedRoleId)) {
@@ -1308,7 +1308,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "にゃんこ代行パネル") {
-    const allowedRoleId = "1388759854738571268";
+    const allowedRoleId = "1398145628218855525";
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
     if (!member.roles.cache.has(allowedRoleId)) {
@@ -1385,7 +1385,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     if (interaction.commandName === "ツムツム代行パネル") {
-      const allowedRoleId = "1388759854738571268";
+      const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
   
       if (!member.roles.cache.has(allowedRoleId)) {
@@ -1613,7 +1613,7 @@ client.on("interactionCreate", async (interaction) => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     if (interaction.commandName === "ぷにぷに代行パネル") {
-      const allowedRoleId = "1388759854738571268";
+      const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
   
       if (!member.roles.cache.has(allowedRoleId)) {
@@ -2539,8 +2539,8 @@ client.on("messageCreate", async (message) => {
       return message.channel.send("このコマンドを実行する権限がありません。");
     }
   
-      const category = "1388759852771311716",
-            role = "1388759857976442880",
+      const category = "1398145622158344222",
+            role = "1398145632945832016",
             welcome = "久垢販売";
       const embed = new MessageEmbed()
         .setTitle("久垢販売")
