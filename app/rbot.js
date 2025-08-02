@@ -1311,13 +1311,6 @@ client.on("interactionCreate", async (interaction) => {
     const allowedRoleId = "1398145628218855525";
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
-    if (!member.roles.cache.has(allowedRoleId)) {
-      return interaction.reply({
-        content: "このコマンドは特定のロールを持つメンバーのみ実行できます",
-        ephemeral: true,
-      });
-    }
-
     const category = interaction.options.getChannel("カテゴリ") || "undefined",
       role = interaction.options.getRole("ロール") || "undefined";
     const embed = new MessageEmbed()
@@ -1387,14 +1380,7 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.commandName === "ツムツム代行パネル") {
       const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
-  
-      if (!member.roles.cache.has(allowedRoleId)) {
-        return interaction.reply({
-          content: "このコマンドは特定のロールを持つメンバーのみ実行できます",
-          ephemeral: true,
-        });
-      }
-  
+
       const category = interaction.options.getChannel("カテゴリ") || "undefined",
         role = interaction.options.getRole("ロール") || "undefined";
       const embed = new MessageEmbed()
@@ -1615,13 +1601,6 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.commandName === "ぷにぷに代行パネル") {
       const allowedRoleId = "1398145628218855525";
       const member = interaction.guild.members.cache.get(interaction.user.id);
-  
-      if (!member.roles.cache.has(allowedRoleId)) {
-        return interaction.reply({
-          content: "このコマンドは特定のロールを持つメンバーのみ実行できます",
-          ephemeral: true,
-        });
-      }
   
       const category = interaction.options.getChannel("カテゴリ") || "undefined",
         role = interaction.options.getRole("ロール") || "undefined";
