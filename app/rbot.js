@@ -243,14 +243,17 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.customId == "ifdelete") {
     if (!interaction.isButton()) return;
   
-    const allowedRoleId = "1398984393556627618";
-  
-    if (!interaction.member.roles.cache.has(allowedRoleId)) {
-      return interaction.reply({
-        ephemeral: true,
-        content: "この操作を実行する権限がありません。",
-      });
-    }
+    const allowedRoleIds = [
+  "1398984393556627618",
+  "1406964222671327424"
+];
+
+if (!interaction.member.roles.cache.some(role => allowedRoleIds.includes(role.id))) {
+  return interaction.reply({
+    ephemeral: true,
+    content: "この操作を実行する権限がありません。",
+  });
+}
   
     interaction.reply({
       ephemeral: true,
