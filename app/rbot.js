@@ -243,7 +243,7 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.customId == "ifdelete") {
     if (!interaction.isButton()) return;
   
-    const allowedRoleId = "1398145628218855525";
+    const allowedRoleId = "1398984393556627618";
   
     if (!interaction.member.roles.cache.has(allowedRoleId)) {
       return interaction.reply({
