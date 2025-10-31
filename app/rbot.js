@@ -2519,7 +2519,7 @@ client.on("messageCreate", async (message) => {
             welcome = "久垢販売";
       const embed = new MessageEmbed()
         .setTitle("久垢販売")
-        .setDescription(`商品番号,個数,送金リンクを入力してください`)
+        .setDescription(`商品番号,個数,送金リンクを入力して送信してください`)
         .setImage(`https://cdn.discordapp.com/attachments/1404504406015086602/1433836618841718914/phonto.jpg?ex=690623e9&is=6904d269&hm=9bfc2d609550793e0dd00b31f3c1198db73cad3e8ddc3540b3d4a96686716123&`)
         .setColor("RANDOM");
       message.channel.send({
