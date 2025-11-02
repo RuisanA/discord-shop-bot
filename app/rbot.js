@@ -2514,12 +2514,12 @@ client.on("messageCreate", async (message) => {
       return message.channel.send("このコマンドを実行する権限がありません。");
     }
   
-      const category = "1398145622158344222",
-            role = "1398145632945832016",
+      const category = "1406644512427610112",
+            role = "1400718754760888341",
             welcome = "久垢販売";
       const embed = new MessageEmbed()
         .setTitle("久垢販売")
-        .setDescription(`商品番号,個数,送金リンクを入力して送信してください`)
+        .setDescription(`個数,送金リンク,フレンドコードを入力してください`)
         .setImage(`https://media.discordapp.net/attachments/1369904649494073407/1433850415333511198/image0.jpg?ex=690630c2&is=6904df42&hm=d6c7bf9fff3e1a16c79166bd3f7fc94eb4557e531c4b6f9c07bc3b76bfe0d8c1&=&format=webp`)
         .setColor("RANDOM");
       message.channel.send({
@@ -2560,9 +2560,9 @@ client.on("interactionCreate", async (interaction) => {
         .addComponents(
           new TextInputComponent()
             .setCustomId("number")
-            .setLabel("商品番号")
+            .setLabel("個数")
             .setStyle("LONG")
-            .setPlaceholder("商品番号(1から4)を入力してください")
+            .setPlaceholder("個数を入力")
             .setRequired(true),
           new TextInputComponent()
             .setCustomId("paypay")
@@ -2571,6 +2571,12 @@ client.on("interactionCreate", async (interaction) => {
             .setPlaceholder(
               "[PayPay] 受け取り依頼が届きました。下記リンクより、受け取りを完了してください。\n\nhttps://pay.paypay.ne.jp/0123456789abcdef"
             )
+            .setRequired(true),
+            new TextInputComponent()
+            .setCustomId("friendcode")
+            .setLabel("フレンドコード")
+            .setStyle("LONG")
+            .setPlaceholder("12345abc")
             .setRequired(true)
         );
       showModal(modal, {
@@ -2583,9 +2589,10 @@ client.on("interactionCreate", async (interaction) => {
   client.on("modalSubmit", async (interaction) => {
     console.log(interaction.customId);
     if (interaction.customId.startsWith("hisaaka-")) {
-      const [number, paypay] = [
+      const [number, paypay, friendcode] = [
         "number",
         "paypay",
+        "friendcode",
       ].map((id) => interaction.getTextInputValue(id));
       let link;
       const value = paypay.split(/\r\n|\n/g);
@@ -2655,7 +2662,7 @@ client.on("interactionCreate", async (interaction) => {
       });
       const info_embed = new MessageEmbed()
         .setTitle("久垢購入-アカウントスタッフの対応をお待ちください")
-        .addField("商品番号", `>>> ${number}`)
+        .addField("個数", `>>> ${number}`)
         .addField("送金リンク:", `>>> ${link}`)
         .setColor("RANDOM");
       const del_embed = new MessageEmbed()
@@ -2663,6 +2670,7 @@ client.on("interactionCreate", async (interaction) => {
         .setColor("RANDOM");
       newChannel.send({
         content: `<@${interaction.user.id}>`,
+        content: `${friendcode}`,
         embeds: [info_embed, del_embed],
         components: [
           newbutton([
