@@ -2514,7 +2514,7 @@ client.on("messageCreate", async (message) => {
       return message.channel.send("このコマンドを実行する権限がありません。");
     }
   
-      const category = "1406644512427610112",
+      const category = "1406644610591363152",
             role = "1400718754760888341",
             welcome = "久垢販売";
       const embed = new MessageEmbed()
