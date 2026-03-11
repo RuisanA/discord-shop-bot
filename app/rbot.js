@@ -2432,7 +2432,13 @@ client.on('messageCreate', async message => {
 
             await message.channel.send({ embeds: [embed] });
         } catch (error) {
-          console.log("Full Error Info:", error.response?.status, error.response?.data);
+          if (error.response) {
+        console.log("PayPayからの拒否理由:", error.response.data);
+        console.log("ステータスコード:", error.response.status);
+    } else {
+        console.log("接続エラー:", error.message);
+    }
+    message.reply('環境制限によりリンク情報を取得できませんでした。');
           
             console.error('取得失敗！！', error);
             message.reply('リンク情報の取得に失敗しました。');
