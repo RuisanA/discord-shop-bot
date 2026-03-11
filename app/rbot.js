@@ -2432,6 +2432,8 @@ client.on('messageCreate', async message => {
 
             await message.channel.send({ embeds: [embed] });
         } catch (error) {
+          console.log("Full Error Info:", error.response?.status, error.response?.data);
+          
             console.error('取得失敗！！', error);
             message.reply('リンク情報の取得に失敗しました。');
         }
