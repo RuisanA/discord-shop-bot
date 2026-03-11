@@ -2334,12 +2334,12 @@ client.on('messageCreate', async message => {
 
         const clientUuid = uuid.v4();
         const baseUrl = "https://www.paypay.ne.jp/app/v2/p2p-api/getP2PLinkInfo";
-        const queryParams = new URLSearchParams({
+        const queryParams = {
             verificationCode: verificationCode,
             client_uuid: clientUuid
-        });
+        };
 
-        const pathHeaderValue = `/app/v2/p2p-api/getP2PLinkInfo?${queryParams.toString()}`;
+        const pathHeaderValue = `/app/v2/p2p-api/getP2PLinkInfo?verificationCode=${verificationCode}&client_uuid=${clientUuid}`;
         const refererUrl = `https://www.paypay.ne.jp/app/p2p/${verificationCode}?pid=SMS&link_key=${verificationCode}`;
 
         const headers = {
@@ -2348,7 +2348,7 @@ client.on('messageCreate', async message => {
             'path': pathHeaderValue,
             'scheme': 'https',
             'Accept': 'application/json, text/plain, */*',
-            'Accept-Encoding': 'gzip, deflate, br, zstd',
+            'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'ja;q=0.9',
             'Referer': refererUrl,
             'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Brave";v="126"',
@@ -2366,6 +2366,7 @@ client.on('messageCreate', async message => {
                 headers,
                 params: queryParams
             });
+
             const data = response.data;
             const payload = data.payload || {};
             const pendingP2PInfo = payload.pendingP2PInfo || {};
@@ -2376,6 +2377,7 @@ client.on('messageCreate', async message => {
             const dataInfo = payload.message?.data || {};
             const createdAt = pendingP2PInfo.createdAt || null;
 
+            // ステータス判定
             let transactionStatus;
             switch (dataInfo.status) {
                 case "COMPLETED":
@@ -2391,9 +2393,9 @@ client.on('messageCreate', async message => {
                     transactionStatus = "不明";
             }
 
-            const currentTime = DateTime.utc();
+            const currentTime = DateTime.now().toUTC();
             const expiredTime = expiredAt
-                ? DateTime.fromISO(expiredAt, { zone: "utc" })
+                ? DateTime.fromISO(expiredAt).toUTC()
                 : null;
             const isExpired = expiredTime ? expiredTime < currentTime : false;
 
@@ -2405,12 +2407,11 @@ client.on('messageCreate', async message => {
             const senderPrepaidAmount = subWalletSplit.senderPrepaidAmount || 0;
 
             const orderId = pendingP2PInfo.orderId || "Unknown";
-
             const userImageUrl = pendingP2PInfo.imageUrl || "";
 
             const embed = new MessageEmbed()
                 .setColor('RED')
-            .setThumbnail(userImageUrl)
+                .setThumbnail(userImageUrl)
                 .setTitle('PayPayリンク情報')
                 .addFields(
                     { name: 'ユーザー名', value: senderName, inline: true },
@@ -2429,7 +2430,7 @@ client.on('messageCreate', async message => {
                 )
                 .setTimestamp();
 
-            message.channel.send({ embeds: [embed] });
+            await message.channel.send({ embeds: [embed] });
         } catch (error) {
             console.error('取得失敗！！', error);
             message.reply('リンク情報の取得に失敗しました。');
