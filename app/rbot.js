@@ -2929,6 +2929,237 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
+client.on("messageCreate", async (message) => {
+  if (message.author.bot || !message.guild) return;
+    if (message.content === "punimod") {
+      if (message.author.id !== "1178414826184265819") {
+      return message.channel.send("このコマンドを実行する権限がありません。");
+    }
+  
+      const categoryId = "1399642936899276862",
+            roleId = "1406633240533532949"
+      const embed = new MessageEmbed()
+        .setTitle("ぷにぷにMODMENU販売")
+        .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
+        .addField(`1.ぷにぷにModMenu_4.163.0`, `> 500円`)
+        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1487877871409041528/IMG_6275.png?ex=69cabdbf&is=69c96c3f&hm=e786ee8ff8c25c8ced6726a5da3ab568a69ddb656cf2555e0b67aabeee0e8e9e&=&format=webp&quality=lossless`)
+        .setColor("RANDOM");
+      message.channel.send({
+        embeds: [embed],
+        components: [
+          newbutton([
+            {
+              id: `punipunimod-${categoryId}-${roleId}`,
+              label: "購入",
+              style: "SUCCESS",
+            },
+          ]),
+        ],
+      });
+    }
+  });
+
+  client.on("interactionCreate", async (interaction) => {
+  try {
+    if (!interaction.isButton()) {
+      return;
+    }
+    console.log(interaction.customId);
+  if (interaction.isButton() && interaction.customId.startsWith("punipunimod")) {
+    const [_, categoryId, roleId] = interaction.customId.split("-");
+
+    const products = interaction.message.embeds[0].fields;
+
+    const options = products.map((field, index) => ({
+    label: field.name,
+    description: field.value.replace(/^> /, ''),
+    value: `${index + 1}`, // 商品番号
+  }));
+
+    const row = new MessageActionRow().addComponents(
+    new MessageSelectMenu()
+      .setCustomId(`punipunimoditem-${categoryId}-${roleId}`)
+      .setPlaceholder("購入する商品を選んでください")
+      .addOptions(options)
+  );
+
+  interaction.reply({
+    content: "購入する商品を選択してください",
+    components: [row],
+    ephemeral: true,
+  });
+}
+} catch (e) {
+    console.log(e);
+  }
+});
+
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isSelectMenu()) return;
+  if (!interaction.customId.startsWith("punipunimoditem-")) return;
+
+  const [_, categoryId, roleId] = interaction.customId.split("-");
+  const selectedNumber = interaction.values[0];
+
+  const modal = new Modal()
+    .setCustomId(`punipunimodmodal-${categoryId}-${roleId}-${selectedNumber}`)
+    .setTitle("購入情報入力フォーム")
+    .addComponents([
+      new TextInputComponent()
+        .setCustomId("paypay")
+        .setLabel("送金リンク")
+        .setStyle("LONG")
+        .setMinLength(10)
+        .setPlaceholder("[PayPay] 受け取り依頼が届きました。下記リンクより、受け取りを完了してください。https://pay.paypay.ne.jp/abcdef0123456789")
+        .setRequired(true),
+    ]);
+
+  showModal(modal, {
+    client,
+    interaction,
+  });
+});
+
+client.on("modalSubmit", async (interaction) => {
+  try {
+    if (interaction.customId.startsWith("punipunimodmodal-")) {
+      const [_, categoryId, roleId, number] = interaction.customId.split("-");
+
+      const paypay = interaction.getTextInputValue("paypay");
+
+      const lines = paypay.split(/\r?\n/);
+
+      let link;
+
+      for (const line of lines) {
+        if (/^https?:\/\/\S+/i.test(line)) {
+          link = line.trim();
+          break;
+        }
+      }
+
+      if (!link)
+        return interaction.reply({
+          content: "PayPayの送金リンクが検出されませんでした",
+          ephemeral: true,
+        });
+
+      const overwrites = [
+        {
+          id: interaction.user.id,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+        {
+          id: interaction.guild.roles.everyone,
+          deny: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+      ];
+
+      if (roleId !== "undefined") {
+        overwrites.push({
+          id: roleId,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        });
+      }
+
+      const channelName = `🎫｜${interaction.user.username}`;
+      const newChannel = await interaction.guild.channels.create(channelName, {
+        type: "GUILD_TEXT",
+        parent: categoryId !== "undefined" ? categoryId : undefined,
+        topic: interaction.user.id,
+        permissionOverwrites: overwrites,
+      });
+
+      await interaction.reply({
+        content: `${newChannel.toString()}を作成しました。`,
+        ephemeral: true,
+      });
+
+      const welcome = "ぷにぷにMODMENU販売";
+
+      const embed = new MessageEmbed()
+        .setTitle("送金処理完了までお待ちください")
+        .addField("商品番号:", `>>> ${number}`)
+        .addField("送金リンク:", `>>> ${link}`)
+        .setColor("RANDOM");
+
+      const welcomeembed = new MessageEmbed()
+      .setDescription(welcome)
+      .setColor("RANDOM");
+
+      await newChannel.send({
+        content: `<@${interaction.user.id}>`,
+        embeds: [embed, welcomeembed],
+        components: [
+          new MessageActionRow().addComponents(
+            new MessageButton()
+              .setCustomId("punisendmod")
+              .setLabel("送金処理: 未完了")
+              .setStyle("SUCCESS"),
+
+            new MessageButton()
+              .setCustomId("ifdelete")
+              .setLabel("チケットを削除")
+              .setStyle("DANGER")
+          ),
+        ],
+      });
+
+      if (roleId !== "undefined") {
+        const mention = await newChannel.send(`<@&${roleId}>`);
+        setTimeout(() => mention.delete(), 3000);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+client.on('interactionCreate', async (interaction) => {
+    if (!interaction.isButton() || interaction.customId !== 'punisendmod') return;
+    const allowedRoleId = "1406633240533532949";
+  
+    if (!interaction.member.roles.cache.has(allowedRoleId)) {
+      return interaction.reply({
+        ephemeral: true,
+        content: "この操作を実行する権限がありません。",
+      });
+    }
+
+    try {
+        const completedButton = new MessageButton()
+            .setCustomId("punisendmod")
+            .setLabel("送金処理: 完了")
+            .setStyle("SUCCESS")
+            .setDisabled(true)
+
+        const deleteButton = new MessageButton()
+        .setCustomId("ifdelete")
+        .setLabel("チケットを削除")
+        .setStyle("DANGER")
+
+        const updatedRow = new MessageActionRow().addComponents(completedButton, deleteButton);
+
+        await interaction.update({
+            components: [updatedRow]
+        });
+
+        const embed = new MessageEmbed()
+        .setTitle("ぷにぷにMODMENU販売")
+        .setDescription(`https://www.mediafire.com/file/lwsjqx4gs5hs6ye/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.163.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setColor("RANDOM")
+        .setTimestamp();
+
+        await interaction.channel.send({ embeds: [embed] });
+
+    } catch (error) {
+        console.error("ボタン更新エラー:", error);
+        if (!interaction.replied) {
+            await interaction.followUp({ content: "エラーが発生しました。", ephemeral: true });
+        }
+    }
+});
+
 process.on('uncaughtException', (error) => {
     console.error('未処理の例外:', error);
     fs.appendFileSync('error.log', `未処理の例外: ${error.stack}\n`);
