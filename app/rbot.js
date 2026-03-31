@@ -1610,8 +1610,9 @@ client.on("interactionCreate", async (interaction) => {
         role = interaction.options.getRole("ロール") || "undefined";
       const embed = new MessageEmbed()
         .setTitle("ぷにぷに代行")
-        .setDescription(`メールアドレスとパスワードに間違いがないようにしてください。ワイポ代行の際は強敵取得は無料です\n\n1.5万ワイポ 800円\n2.10万ワイポ 1000円\n3.20万ワイポ 2000円\n4.30万ワイポ 3000円\n5.40万ワイポ 4000円\n6.50万ワイポ 4500円\n7.イベ終わりまで 1500円\n8.強敵取得 500円\n9.強敵完凸 1000円\n10.12時間周回 600円\n11.24時間周回 1200円\n12.取り巻き全撃破 300円\n13.ステージ進行 400円\n\nお支払い方法 PayPay`) 
-        .setColor("RANDOM");
+        .setDescription(`メールアドレスとパスワードに間違いがないようにしてください。ワイポ代行の際は強敵取得は無料です\n\n1.強敵取得 300円\n2.秘伝書カンスト 2000円\n3.スキル書カンスト 4000円\n4.12時間周回 600円\n5.24時間周回 1200円\n6.取り巻き全撃破 300円\n7.ステージ進行 400円\n\nお支払い方法 PayPay`) 
+        .setColor("RANDOM")
+        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1488431818951622729/e258_map_text_battle_fuin01.png?ex=69cd6a67&is=69cc18e7&hm=3c7d50d73d5ce1780e5fb0e3b81ce112f6ddc48bf6ef596974720db18a9e7bd3&=&format=webp&quality=lossless`)
       interaction.reply({
         embeds: [embed],
         components: [
