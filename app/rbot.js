@@ -3161,6 +3161,199 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
+
+
+client.on("messageCreate", async (message) => {
+  if (message.author.bot || !message.guild) return;
+    if (message.content === "isiaka") {
+      if (message.author.id !== "1178414826184265819") {
+      return message.channel.send("このコマンドを実行する権限がありません。");
+    }
+  
+      const categoryId = "1406644610591363152",
+            roleId = "1406633240533532949"
+      const embed = new MessageEmbed()
+        .setTitle("ぷにぷに石垢販売")
+        .setDescription(`完全非共有 メールアドレスパスワード変更可能`)
+        .addField(`1.10万ワイポ`, `> 1000円`)
+        .addField(`2.10万ワイポ`, `> 1000円`)
+        .addField(`3.12万ワイポ`, `> 1200円`)
+        .addField(`4.10万ワイポ`, `> 1000円`)
+        .addField(`5.10万ワイポ`, `> 1000円`)
+        .addField(`6.10万ワイポ`, `> 1000円`)
+        .addField(`7.11万ワイポ`, `> 1100円`)
+        .addField(`8.13万ワイポ`, `> 1300円`)
+        .addField(`9.10万ワイポ`, `> 1000円`)
+        .addField(`10.13万ワイポ`, `> 1300円`)
+        .addField(`11.17万ワイポ`, `> 1700円`)
+        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1488835685346709575/phonto.jpg?ex=69ce39c8&is=69cce848&hm=f160c9c5aa1f831f13f42213062de20f777bf8162bea58d2e7b439bb47211213&=&format=webp&width=550&height=323`)
+        .setColor("RANDOM");
+      message.channel.send({
+        embeds: [embed],
+        components: [
+          newbutton([
+            {
+              id: `punipuniisiaka-${categoryId}-${roleId}`,
+              label: "購入",
+              style: "SUCCESS",
+            },
+          ]),
+        ],
+      });
+    }
+  });
+
+  client.on("interactionCreate", async (interaction) => {
+  try {
+    if (!interaction.isButton()) {
+      return;
+    }
+    console.log(interaction.customId);
+  if (interaction.isButton() && interaction.customId.startsWith("punipuniisiaka")) {
+    const [_, categoryId, roleId] = interaction.customId.split("-");
+
+    const products = interaction.message.embeds[0].fields;
+
+    const options = products.map((field, index) => ({
+    label: field.name,
+    description: field.value.replace(/^> /, ''),
+    value: `${index + 1}`, // 商品番号
+  }));
+
+    const row = new MessageActionRow().addComponents(
+    new MessageSelectMenu()
+      .setCustomId(`punipuniisiakaitem-${categoryId}-${roleId}`)
+      .setPlaceholder("購入する商品を選んでください")
+      .addOptions(options)
+  );
+
+  interaction.reply({
+    content: "購入する商品を選択してください",
+    components: [row],
+    ephemeral: true,
+  });
+}
+} catch (e) {
+    console.log(e);
+  }
+});
+
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isSelectMenu()) return;
+  if (!interaction.customId.startsWith("punipuniisiakaitem-")) return;
+
+  const [_, categoryId, roleId] = interaction.customId.split("-");
+  const selectedNumber = interaction.values[0];
+
+  const modal = new Modal()
+    .setCustomId(`punipuniisiakamodal-${categoryId}-${roleId}-${selectedNumber}`)
+    .setTitle("購入情報入力フォーム")
+    .addComponents([
+      new TextInputComponent()
+        .setCustomId("paypay")
+        .setLabel("送金リンク")
+        .setStyle("LONG")
+        .setMinLength(10)
+        .setPlaceholder("[PayPay] 受け取り依頼が届きました。下記リンクより、受け取りを完了してください。https://pay.paypay.ne.jp/abcdef0123456789")
+        .setRequired(true),
+    ]);
+
+  showModal(modal, {
+    client,
+    interaction,
+  });
+});
+
+client.on("modalSubmit", async (interaction) => {
+  try {
+    if (interaction.customId.startsWith("punipuniisiakamodal-")) {
+      const [_, categoryId, roleId, number] = interaction.customId.split("-");
+
+      const paypay = interaction.getTextInputValue("paypay");
+
+      const lines = paypay.split(/\r?\n/);
+
+      let link;
+
+      for (const line of lines) {
+        if (/^https?:\/\/\S+/i.test(line)) {
+          link = line.trim();
+          break;
+        }
+      }
+
+      if (!link)
+        return interaction.reply({
+          content: "PayPayの送金リンクが検出されませんでした",
+          ephemeral: true,
+        });
+
+      const overwrites = [
+        {
+          id: interaction.user.id,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+        {
+          id: interaction.guild.roles.everyone,
+          deny: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+      ];
+
+      if (roleId !== "undefined") {
+        overwrites.push({
+          id: roleId,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        });
+      }
+
+      const channelName = `🎫｜${interaction.user.username}`;
+      const newChannel = await interaction.guild.channels.create(channelName, {
+        type: "GUILD_TEXT",
+        parent: categoryId !== "undefined" ? categoryId : undefined,
+        topic: interaction.user.id,
+        permissionOverwrites: overwrites,
+      });
+
+      await interaction.reply({
+        content: `${newChannel.toString()}を作成しました。`,
+        ephemeral: true,
+      });
+
+      const welcome = "ぷにぷに石垢販売";
+
+      const embed = new MessageEmbed()
+        .setTitle("スタッフの対応をお待ちください")
+        .addField("商品番号:", `>>> ${number}`)
+        .addField("送金リンク:", `>>> ${link}`)
+        .setColor("RANDOM");
+
+      const welcomeembed = new MessageEmbed()
+      .setDescription(welcome)
+      .setColor("RANDOM");
+
+      await newChannel.send({
+        content: `<@${interaction.user.id}>`,
+        embeds: [embed, welcomeembed],
+        components: [
+          new MessageActionRow().addComponents(
+            new MessageButton()
+              .setCustomId("ifdelete")
+              .setLabel("チケットを削除")
+              .setStyle("DANGER"),
+          ),
+        ],
+      });
+
+      if (roleId !== "undefined") {
+        const mention = await newChannel.send(`<@&${roleId}>`);
+        setTimeout(() => mention.delete(), 3000);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 process.on('uncaughtException', (error) => {
     console.error('未処理の例外:', error);
     fs.appendFileSync('error.log', `未処理の例外: ${error.stack}\n`);
