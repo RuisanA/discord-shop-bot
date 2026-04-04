@@ -2710,7 +2710,7 @@ client.on("messageCreate", async (message) => {
       const embed = new MessageEmbed()
         .setTitle("ツムツムModMenu販売")
         .setDescription(`対応機種: Android実機,UG全般,PC(エミュレーター)`)
-        .addField(`1.ツムツムModMenu_12.4.0`, `> 500円`)
+        .addField(`1.ツムツムModMenu_12.4.1`, `> 500円`)
         .addField(`2.ツムツムModMenu_永久`, `> 3000円`)
         .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1486677336010133535/Screenshot_2025-10-16-02-52-27-08_2ad3bb16c2feb252f5af8f6d2daf4aa7.jpg?ex=69c65faa&is=69c50e2a&hm=b3712589950f04619b824adb465cd92cd8c8bde521c3668885e1ebe5fff998ab&=&format=webp&width=393&height=873`)
         .setColor("RANDOM");
@@ -2916,7 +2916,7 @@ client.on('interactionCreate', async (interaction) => {
 
         const embed = new MessageEmbed()
         .setTitle("ツムツムModMenu販売")
-        .setDescription(`https://www.mediafire.com/file/h81w7i6v0z5z4p9/%25E3%2583%2584%25E3%2583%25A0%25E3%2583%2584%25E3%2583%25A0ModMenu_12.4.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setDescription(`https://www.mediafire.com/file/jdjyvl1vtw0um2f/%25E3%2583%2584%25E3%2583%25A0%25E3%2583%2584%25E3%2583%25A0ModMenu_12.4.1.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
         .setColor("RANDOM")
         .setTimestamp();
 
