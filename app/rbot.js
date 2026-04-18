@@ -2942,6 +2942,7 @@ client.on("messageCreate", async (message) => {
         .setTitle("ぷにぷにMODMENU販売")
         .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
         .addField(`1.ぷにぷにModMenu_4.164.1`, `> 500円`)
+        .addField(`2.ぷにぷにModMenu_永久`, `> 3000円`)
         .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1494979106591211550/IMG_6456.png?ex=69e4934a&is=69e341ca&hm=e5f579b25abe5bc5077e801312516f17e0112761b006c5ad6194fa2d374f0150&=&format=webp&quality=lossless`)
         .setColor("RANDOM");
       message.channel.send({
