@@ -3363,7 +3363,7 @@ client.on("messageCreate", async (message) => {
         return message.channel.send("このコマンドを実行する権限がありません。");
       }
     
-        const categoryId = "1399642936899276862",
+        const categoryId = "1399643064695394384",
               roleId = "1406633240533532949"
         const embed = new MessageEmbed()
           .setTitle("サーバー作成代行")
