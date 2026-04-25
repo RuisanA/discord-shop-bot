@@ -3354,6 +3354,161 @@ client.on("modalSubmit", async (interaction) => {
   }
 });
 
+
+
+client.on("messageCreate", async (message) => {
+    if (message.author.bot || !message.guild) return;
+      if (message.content === "servercreate") {
+        if (message.author.id !== "1178414826184265819") {
+        return message.channel.send("このコマンドを実行する権限がありません。");
+      }
+    
+        const categoryId = "1399642936899276862",
+              roleId = "1406633240533532949"
+        const embed = new MessageEmbed()
+          .setTitle("サーバー作成代行")
+          .setDescription(`値段: 1500円\nご要望通りのチャンネル作成\nBOTセッティング\n荒らし対策\nロール作成\n\nサーバーをこれから持つ方,持ちたい方に向けて作成致します`)
+          .setImage(`https://static0.anpoimages.com/wordpress/wp-content/uploads/2024/05/discord-3-ap24-hero.jpg?w=1600&h=900&fit=crop`)
+          .setColor("RANDOM");
+        message.channel.send({
+          embeds: [embed],
+          components: [
+            newbutton([
+              {
+                id: `servercreate-${categoryId}-${roleId}`,
+                label: "購入",
+                style: "SUCCESS",
+              },
+            ]),
+          ],
+        });
+      }
+    });
+  
+  
+  client.on('interactionCreate', async (interaction) => {
+    if (!interaction.customId.startsWith("servercreate-")) return;
+  
+    const [_, categoryId, roleId] = interaction.customId.split("-");
+  
+    const modal = new Modal()
+      .setCustomId(`servercreate2-${categoryId}-${roleId}`)
+      .setTitle("購入情報入力フォーム")
+      .addComponents([
+        new TextInputComponent()
+          .setCustomId("paypay")
+          .setLabel("送金リンク")
+          .setStyle("LONG")
+          .setMinLength(10)
+          .setPlaceholder("[PayPay] 受け取り依頼が届きました。下記リンクより、受け取りを完了してください。https://pay.paypay.ne.jp/abcdef0123456789")
+          .setRequired(true),
+
+          new TextInputComponent()
+          .setCustomId("order")
+          .setLabel("用途・ご希望のサーバー仕様")
+          .setStyle("LONG")
+          .setMinLength(100)
+          .setPlaceholder("思いつかない場合は簡単で大丈夫です(最大100字)")
+          .setRequired(true),
+      ]);
+  
+    showModal(modal, {
+      client,
+      interaction,
+    });
+  });
+  
+  client.on("modalSubmit", async (interaction) => {
+    try {
+      if (interaction.customId.startsWith("servercreate2-")) {
+        const [_, categoryId, roleId] = interaction.customId.split("-");
+  
+        const paypay = interaction.getTextInputValue("paypay");
+        const order = interaction.getTextInputValue("order");
+  
+        const lines = paypay.split(/\r?\n/);
+  
+        let link;
+  
+        for (const line of lines) {
+          if (/^https?:\/\/\S+/i.test(line)) {
+            link = line.trim();
+            break;
+          }
+        }
+  
+        if (!link)
+          return interaction.reply({
+            content: "PayPayの送金リンクが検出されませんでした",
+            ephemeral: true,
+          });
+  
+        const overwrites = [
+          {
+            id: interaction.user.id,
+            allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+          },
+          {
+            id: interaction.guild.roles.everyone,
+            deny: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+          },
+        ];
+  
+        if (roleId !== "undefined") {
+          overwrites.push({
+            id: roleId,
+            allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+          });
+        }
+  
+        const channelName = `🎫｜${interaction.user.username}`;
+        const newChannel = await interaction.guild.channels.create(channelName, {
+          type: "GUILD_TEXT",
+          parent: categoryId !== "undefined" ? categoryId : undefined,
+          topic: interaction.user.id,
+          permissionOverwrites: overwrites,
+        });
+  
+        await interaction.reply({
+          content: `${newChannel.toString()}を作成しました。`,
+          ephemeral: true,
+        });
+  
+        const welcome = "サーバー作成代行";
+  
+        const embed = new MessageEmbed()
+          .setTitle("スタッフの対応をお待ちください")
+          .addField("送金リンク:", `>>> ${link}`)
+          .addField("用途・サーバー仕様:", `>>> ${order}`)
+          .setColor("RANDOM");
+  
+        const welcomeembed = new MessageEmbed()
+        .setDescription(welcome)
+        .setColor("RANDOM");
+  
+        await newChannel.send({
+          content: `<@${interaction.user.id}>`,
+          embeds: [embed, welcomeembed],
+          components: [
+            new MessageActionRow().addComponents(
+              new MessageButton()
+                .setCustomId("ifdelete")
+                .setLabel("チケットを削除")
+                .setStyle("DANGER"),
+            ),
+          ],
+        });
+  
+        if (roleId !== "undefined") {
+          const mention = await newChannel.send(`<@&${roleId}>`);
+          setTimeout(() => mention.delete(), 3000);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
 process.on('uncaughtException', (error) => {
     console.error('未処理の例外:', error);
     fs.appendFileSync('error.log', `未処理の例外: ${error.stack}\n`);
