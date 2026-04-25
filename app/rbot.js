@@ -3407,8 +3407,7 @@ client.on("messageCreate", async (message) => {
           .setCustomId("order")
           .setLabel("用途・ご希望のサーバー仕様")
           .setStyle("LONG")
-          .setMinLength(100)
-          .setPlaceholder("思いつかない場合は簡単で大丈夫です(最大100字)")
+          .setPlaceholder("思いつかない場合は簡単で大丈夫です")
           .setRequired(true),
       ]);
   
