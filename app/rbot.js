@@ -3175,18 +3175,11 @@ client.on("messageCreate", async (message) => {
       const embed = new MessageEmbed()
         .setTitle("ぷにぷに石垢販売")
         .setDescription(`完全非共有 メールアドレスパスワード変更可能`)
-        .addField(`1.10万ワイポ`, `> 600円`)
-        .addField(`2.10万ワイポ`, `> 600円`)
-        .addField(`3.12万ワイポ`, `> 800円`)
-        .addField(`4.10万ワイポ`, `> 600円`)
-        .addField(`5.10万ワイポ(売り切れ)`, `> 600円`)
-        .addField(`6.10万ワイポ`, `> 600円`)
-        .addField(`7.11万ワイポ`, `> 700円`)
-        .addField(`8.13万ワイポ`, `> 900円`)
-        .addField(`9.10万ワイポ`, `> 600円`)
-        .addField(`10.13万ワイポ`, `> 900円`)
-        .addField(`11.17万ワイポ(売り切れ)`, `> 1500円`)
-        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1488835685346709575/phonto.jpg?ex=69ce39c8&is=69cce848&hm=f160c9c5aa1f831f13f42213062de20f777bf8162bea58d2e7b439bb47211213&=&format=webp&width=550&height=323`)
+        .addField(`1.20万ワイポ(極土あり)`, `> 2000円`)
+        .addField(`2.16万ワイポ`, `> 1500円`)
+        .addField(`3.16万ワイポ`, `> 1500円`)
+        .addField(`4.38万ワイポ(極土あり)`, `> 4000円`)
+        .setImage(`https://cdn.discordapp.com/attachments/1365763128851435633/1499627379335757835/phonto.jpg?ex=69f57c54&is=69f42ad4&hm=2b26455aa7ef607a015271d3c4226d040cff826c2cf4d84dfea70a987a7d1495&`)
         .setColor("RANDOM");
       message.channel.send({
         embeds: [embed],
