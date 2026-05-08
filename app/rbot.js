@@ -3178,11 +3178,11 @@ client.on("messageCreate", async (message) => {
         .addField(`1.20万ワイポ(極土あり)`, `> 売り切れ`)
         .addField(`2.16万ワイポ`, `> 1500円`)
         .addField(`3.16万ワイポ`, `> 1500円`)
-        .addField(`4.38万ワイポ(極土あり)`, `> 4000円`)
+        .addField(`4.38万ワイポ(極土あり)`, `> 3000円`)
         .addField(`5.50万ワイポ`, `> 4000円`)
         .addField(`6.40万ワイポ`, `> 3000円`)
         .addField(`7.45万ワイポ`, `> 3500円`)
-        .addField(`8.20万ワイポ`, `> 1500円`)
+        .addField(`8.20万ワイポ`, `> 2000円`)
         .setImage(`https://cdn.discordapp.com/attachments/1365763128851435633/1501929887508992020/phonto.jpg?ex=69fddcb5&is=69fc8b35&hm=a42f2edf50154bd6c6f2281dd624367b99f1d4cc6fd128e71041b5af5144d9b7&`)
         .setColor("RANDOM");
       message.channel.send({
