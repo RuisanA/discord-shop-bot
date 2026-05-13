@@ -2941,9 +2941,9 @@ client.on("messageCreate", async (message) => {
       const embed = new MessageEmbed()
         .setTitle("ぷにぷにMODMENU販売")
         .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
-        .addField(`1.ぷにぷにModMenu_4.164.1`, `> 500円`)
+        .addField(`1.ぷにぷにModMenu_4.166.0`, `> 500円`)
         .addField(`2.ぷにぷにModMenu_永久`, `> 3000円`)
-        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1494979106591211550/IMG_6456.png?ex=69e4934a&is=69e341ca&hm=e5f579b25abe5bc5077e801312516f17e0112761b006c5ad6194fa2d374f0150&=&format=webp&quality=lossless`)
+        .setImage(`https://www.level5.co.jp/news/20260513_01/img/img01.jpg`)
         .setColor("RANDOM");
       message.channel.send({
         embeds: [embed],
@@ -3147,7 +3147,7 @@ client.on('interactionCreate', async (interaction) => {
 
         const embed = new MessageEmbed()
         .setTitle("ぷにぷにMODMENU販売")
-        .setDescription(`https://www.mediafire.com/file/ued5xmx8myq04im/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.164.1.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setDescription(`https://www.mediafire.com/file/g4k5d7gcleawvrx/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.166.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
         .setColor("RANDOM")
         .setTimestamp();
 
