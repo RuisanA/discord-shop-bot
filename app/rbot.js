@@ -2941,7 +2941,7 @@ client.on("messageCreate", async (message) => {
       const embed = new MessageEmbed()
         .setTitle("ぷにぷにMODMENU販売")
         .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
-        .addField(`1.ぷにぷにModMenu_4.166.0`, `> 500円`)
+        .addField(`1.ぷにぷにModMenu_4.167.0`, `> 500円`)
         .addField(`2.ぷにぷにModMenu_永久`, `> 3000円`)
         .setImage(`https://www.level5.co.jp/news/20260513_01/img/img01.jpg`)
         .setColor("RANDOM");
@@ -3147,7 +3147,7 @@ client.on('interactionCreate', async (interaction) => {
 
         const embed = new MessageEmbed()
         .setTitle("ぷにぷにMODMENU販売")
-        .setDescription(`https://www.mediafire.com/file/g4k5d7gcleawvrx/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.166.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setDescription(`https://www.mediafire.com/file/uj13leff5hb9nqr/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.167.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
         .setColor("RANDOM")
         .setTimestamp();
 
