@@ -2943,7 +2943,7 @@ client.on("messageCreate", async (message) => {
         .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
         .addField(`1.ぷにぷにModMenu_4.167.0`, `> 500円`)
         .addField(`2.ぷにぷにModMenu_永久`, `> 3000円`)
-        .setImage(`https://www.level5.co.jp/news/20260513_01/img/img01.jpg`)
+        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1509587838449094836/IMG_7014.png?ex=6a19b8bb&is=6a18673b&hm=4e9cd7ae962aa32ba74bfa2c5f768add9cc7f1f9b3286216ee27d43248749abe&=&format=webp&quality=lossless&width=1148&height=839`)
         .setColor("RANDOM");
       message.channel.send({
         embeds: [embed],
