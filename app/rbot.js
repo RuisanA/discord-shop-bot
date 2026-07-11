@@ -2457,7 +2457,8 @@ client.on("messageCreate", async (message) => {
 });
 
 async function sendChannelCountEmbed(channel, author) {
-  const { embed, components } = generateChannelCountEmbed(author);
+  // channel.guild を第一引数に追加
+  const { embed, components } = generateChannelCountEmbed(channel.guild, author);
   const sentMessage = await channel.send({ embeds: [embed], components: [components] });
 
   setupCollector(sentMessage, author);
@@ -2468,43 +2469,58 @@ function setupCollector(message, author) {
   const collector = message.createMessageComponentCollector({ filter });
 
   collector.on("collect", async (interaction) => {
-    await interaction.deferUpdate();
+  await interaction.deferUpdate();
 
-    const { embed, components } = generateChannelCountEmbed(author);
-    await message.edit({ embeds: [embed], components: [components] });
+  // interaction.guild を第一引数に追加
+  const { embed, components } = generateChannelCountEmbed(interaction.guild, author);
+  await message.edit({ embeds: [embed], components: [components] });
 
-    // 👇 ここで再帰的に `setupCollector` を呼び出して新しい collector を作る
-    setupCollector(message, author);
-  });
+  setupCollector(message, author);
+});
 }
 
-function generateChannelCountEmbed(author) {
-  const categories = client.guilds.cache.first().channels.cache
+function generateChannelCountEmbed(guild, author) {
+  // client.guilds.cache.first() ではなく、そのコマンドが打たれたサーバー(guild)から取得します
+  const categories = guild.channels.cache
     .filter((channel) => channel.type === "GUILD_CATEGORY")
     .sort((a, b) => a.rawPosition - b.rawPosition);
 
   let totalChannels = 0;
-  let fields = [];
+  let categoryLines = [];
 
   categories.forEach((category) => {
-    const channelCount = client.guilds.cache.first().channels.cache.filter(
+    const channelCount = guild.channels.cache.filter(
       (ch) => ch.parentId === category.id
     ).size;
     totalChannels += channelCount;
-    fields.push({ name: `📂 ${category.name}`, value: `${channelCount} チャンネル`, inline: true });
+    
+    // フィールドではなく、配列にテキストとして追加していきます
+    categoryLines.push(`📂 **${category.name}**: ${channelCount} チャンネル`);
   });
 
-  const uncategorizedChannels = client.guilds.cache.first().channels.cache.filter(
+  const uncategorizedChannels = guild.channels.cache.filter(
     (ch) => !ch.parentId && ch.type !== "GUILD_CATEGORY"
   ).size;
   totalChannels += uncategorizedChannels;
 
+  // カテゴリーなしもテキストに追加
+  if (uncategorizedChannels > 0) {
+    categoryLines.push(`📂 **カテゴリーなし**: ${uncategorizedChannels} チャンネル`);
+  }
+
+  // Discordの文字数制限（Descriptionは4096文字）を考慮し、テキストを結合
+  // 万が一カテゴリーが多すぎても、文字数制限に引っかかりにくくします
+  const descriptionText = categoryLines.join("\n");
+
   const embed = new MessageEmbed()
     .setColor("#3498db")
     .setTitle("📊 サーバーチャンネル統計")
-    .addFields(fields)
-    .addField("📂 カテゴリーなし", `${uncategorizedChannels} チャンネル`, true)
-    .addField("📊 総チャンネル数", `${totalChannels} チャンネル`, true)
+    // description にカテゴリー一覧をすべて流し込みます（1つの枠に収まるため25個制限を回避できます）
+    .setDescription(descriptionText.substring(0, 4000)) 
+    // 総計だけをパッと見やすいようにフィールドに配置
+    .addFields([
+      { name: "📊 総チャンネル数", value: `${totalChannels} チャンネル`, inline: false }
+    ])
     .setFooter({ text: `Requested by ${author.tag}`, iconURL: author.displayAvatarURL() })
     .setTimestamp();
 
