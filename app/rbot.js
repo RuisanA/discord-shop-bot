@@ -2723,11 +2723,10 @@ client.on("messageCreate", async (message) => {
       const categoryId = "1428083899950567454",
             roleId = "1406633240533532949"
       const embed = new MessageEmbed()
-        .setTitle("ツムツムModMenu販売")
+        .setTitle("ツムツムModMenu,スクリプト販売")
         .setDescription(`対応機種: Android実機,UG全般,PC(エミュレーター)`)
-        .addField(`1.ツムツムModMenu_12.7.0`, `> 500円`)
-        .addField(`2.ツムツムModMenu_永久`, `> 3000円`)
-        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1486677336010133535/Screenshot_2025-10-16-02-52-27-08_2ad3bb16c2feb252f5af8f6d2daf4aa7.jpg?ex=69c65faa&is=69c50e2a&hm=b3712589950f04619b824adb465cd92cd8c8bde521c3668885e1ebe5fff998ab&=&format=webp&width=393&height=873`)
+        .addField(`1.ツムツムModMenu_12.7.0＆ツムツムスクリプト_12.7.0セット`, `> 500円`)
+        .addField(`2.ツムツムModMenu永久＆ツムツムスクリプト永久セット`, `> 3000円`)
         .setColor("RANDOM");
       message.channel.send({
         embeds: [embed],
@@ -2930,8 +2929,8 @@ client.on('interactionCreate', async (interaction) => {
         });
 
         const embed = new MessageEmbed()
-        .setTitle("ツムツムModMenu販売")
-        .setDescription(`https://www.mediafire.com/file/4rzjm04kexikl4f/%25E3%2583%2584%25E3%2583%25A0%25E3%2583%2584%25E3%2583%25A0ModMenu_12.7.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setTitle("ツムツムModMenu_12.7.0＆ツムツムスクリプト_12.7.0セット")
+        .setDescription(`https://www.mediafire.com/file/4rzjm04kexikl4f/%25E3%2583%2584%25E3%2583%25A0%25E3%2583%2584%25E3%2583%25A0ModMenu_12.7.0.apk/file,https://www.mediafire.com/file/y6mfz0f994fjx1e/%25E3%2583%2584%25E3%2583%25A0%25E3%2583%2584%25E3%2583%25A0%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%2597%25E3%2583%2588_12.7.0.ENC.lua/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
         .setColor("RANDOM")
         .setTimestamp();
 
@@ -2955,11 +2954,11 @@ client.on("messageCreate", async (message) => {
       const categoryId = "1399642936899276862",
             roleId = "1406633240533532949"
       const embed = new MessageEmbed()
-        .setTitle("ぷにぷにMODMENU販売")
+        .setTitle("ぷにぷにModMenu&ぷにぷにスクリプト販売")
         .setDescription(`**対応機種** Android実機 PCエミュレーター(NOX,LD,BlueStacks) UGPhone(Android12)`)
-        .addField(`1.ぷにぷにModMenu_4.167.0`, `> 500円`)
-        .addField(`2.ぷにぷにModMenu_永久`, `> 3000円`)
-        .setImage(`https://media.discordapp.net/attachments/1365763128851435633/1509587838449094836/IMG_7014.png?ex=6a19b8bb&is=6a18673b&hm=4e9cd7ae962aa32ba74bfa2c5f768add9cc7f1f9b3286216ee27d43248749abe&=&format=webp&quality=lossless&width=1148&height=839`)
+        .addField(`1.ぷにぷにModMenu_4.170.0 ぷにぷにスクリプトセット`, `> 500円`)
+        .addField(`2.ぷにぷに周回特化型ModMenu_4.170.0 ぷにぷにスクリプトセット`, `> 300円`)
+        .addField(`3.ぷにぷにModMenu永久 ぷにぷにスクリプト永久セット`, `> 3000円`)
         .setColor("RANDOM");
       message.channel.send({
         embeds: [embed],
@@ -3162,8 +3161,8 @@ client.on('interactionCreate', async (interaction) => {
         });
 
         const embed = new MessageEmbed()
-        .setTitle("ぷにぷにMODMENU販売")
-        .setDescription(`https://www.mediafire.com/file/uj13leff5hb9nqr/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.167.0.apk/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
+        .setTitle("ぷにぷにModMenu_4.170.0 ぷにぷにスクリプトセット")
+        .setDescription(`https://www.mediafire.com/file/ihfsik32z38xdwe/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25ABModMenu_4.170.0.apk/file,https://www.mediafire.com/file/l7czz63x1jv13rf/%25E3%2581%25B7%25E3%2581%25AB%25E3%2581%25B7%25E3%2581%25AB%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%2597%25E3%2583%2588_4.170.0.ENC.lua/file\n\nご購入ありがとうございます\nご確認頂けましたら <#1399314060373135400> に実績記入をお願い致します`)
         .setColor("RANDOM")
         .setTimestamp();
 
