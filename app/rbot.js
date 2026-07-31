@@ -1611,6 +1611,7 @@ client.on("interactionCreate", async (interaction) => {
       const embed = new MessageEmbed()
         .setTitle("ぷにぷに代行")
         .setDescription(`メールアドレスとパスワードに間違いがないようにしてください。ワイポ代行の際は強敵取得は無料です\n\n1.強敵(シノンGGO)取得 500円\n2.秘伝書カンスト 2000円\n4.スキル書カンスト 3000円\n5.ステージ進行 1000円\n\nお支払い方法 PayPay`)
+        .setImage("https://cdn.discordapp.com/attachments/1365763128851435633/1532784221918199818/IMG_8003.jpg?ex=6a6e1c0c&is=6a6cca8c&hm=eddd4db579e3238572ad3d17d8c6c0b82cf7882576ac2dcef392a514b3cc8a58&")
         .setColor("RANDOM")
       interaction.reply({
         embeds: [embed],
