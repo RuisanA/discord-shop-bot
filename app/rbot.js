@@ -1611,7 +1611,7 @@ client.on("interactionCreate", async (interaction) => {
       const embed = new MessageEmbed()
         .setTitle("ぷにぷに代行")
         .setDescription(`メールアドレスとパスワードに間違いがないようにしてください。ワイポ代行の際は強敵取得は無料です\n\n1.スイカニャンの試練全クリア(トロピカルジュース取得) 500円\n2.スキル書カンスト 3000円\n3.秘伝書カンスト 2000円\n4.取り巻き全撃破 300円\n5.ステージ進行 1000円\n\nお支払い方法 <#1527588309780402267>`)
-        .setImage("https://media.discordapp.net/attachments/1365763128851435633/1537029222575378432/IMG_8271.png?ex=6a7edf03&is=6a7d8d83&hm=3ceddd84c6d98521675d6ba05ccf182dd1dd02c1abacfd331d3c103a7aaae0c5&=&format=webp&quality=lossless")
+        .setImage("https://cdn.discordapp.com/attachments/1365763128851435633/1544260728242962432/772BC9BA-8492-41CD-8E6B-43C21B380152.jpg?ex=6a97dc60&is=6a968ae0&hm=aad9866bc160806b84cb671e26bf8f5a72b4233b3c563be88b5c325785a5e73a&")
         .setColor("RANDOM")
       interaction.reply({
         embeds: [embed],
